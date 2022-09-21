@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:todo_app/app/modules/home/widgets/add_card.dart';
+import 'package:todo_app/core/utils/extensions.dart';
 
 import '../controllers/home_controller.dart';
 
@@ -10,16 +12,23 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('HomeView'),
-        centerTitle: true,
-      ),
-      body: const Center(
-        child: Text(
-          'HomeView is working',
-          style: TextStyle(fontSize: 20),
+        body: SafeArea(
+            child: ListView(
+      children: [
+        Padding(
+          padding: EdgeInsets.all(4.0.wp),
+          child: Text(
+            "My List",
+            style: TextStyle(fontSize: 24.0.sp, fontWeight: FontWeight.bold),
+          ),
         ),
-      ),
-    );
+        GridView.count(
+          crossAxisCount: 2,
+          shrinkWrap: true,
+          physics: const ClampingScrollPhysics(),
+          children: [AddCard()],
+        )
+      ],
+    )));
   }
 }
