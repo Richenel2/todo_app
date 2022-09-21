@@ -3,17 +3,18 @@ import 'package:equatable/equatable.dart';
 class Task extends Equatable {
   String? title;
   int? icon;
-  int? color;
+  String? color;
   List? todos;
   DateTime? date;
 
-  Task({this.title, this.icon, this.color, this.todos, this.date});
+  Task({this.title, this.icon, this.color, this.todos, date})
+      : date = date ?? DateTime.now();
 
   Task.fromJson(Map<String, dynamic> json) {
     title = json['title'];
     icon = json['icon'];
     color = json['color'];
-    date = DateTime.parse(json["date"]);
+    date = DateTime.parse(json["date"] );
     if (json['todos'] != null) {
       todos = [];
       json['todos'].forEach((v) {
@@ -27,14 +28,14 @@ class Task extends Equatable {
     data['title'] = title;
     data['icon'] = icon;
     data['color'] = color;
-    data['date'] = date.toString();
+    data['date'] = date?.toString();
     if (todos != null) {
-      data['todos'] = todos?.map((v) => v.toJson()).toList();
+      data['todos'] = todos;
     }
     return data;
   }
 
-  Task copyWith({String? title, int? icon, int? color, List? todos}) => Task(
+  Task copyWith({String? title, int? icon, String? color, List? todos}) => Task(
         title: title ?? this.title,
         icon: icon ?? this.icon,
         color: color ?? this.color,
