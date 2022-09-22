@@ -4,21 +4,31 @@ class Task extends Equatable {
   String? title;
   int? icon;
   String? color;
-  List? todos;
+  List todos = [];
+  List done = [];
   DateTime? date;
 
-  Task({this.title, this.icon, this.color, this.todos, date})
-      : date = date ?? DateTime.now();
+  Task({this.title, this.icon, this.color, todos, done, date}) {
+    this.date = date ?? DateTime.now();
+    this.done = done ?? [];
+    this.todos = todos ?? [];
+  }
 
   Task.fromJson(Map<String, dynamic> json) {
     title = json['title'];
     icon = json['icon'];
     color = json['color'];
-    date = DateTime.parse(json["date"] );
+    date = DateTime.parse(json["date"]);
     if (json['todos'] != null) {
       todos = [];
       json['todos'].forEach((v) {
-        todos?.add(v);
+        todos.add(v);
+      });
+    }
+    if (json['done'] != null) {
+      done = [];
+      json['done'].forEach((v) {
+        done.add(v);
       });
     }
   }
@@ -29,9 +39,8 @@ class Task extends Equatable {
     data['icon'] = icon;
     data['color'] = color;
     data['date'] = date?.toString();
-    if (todos != null) {
-      data['todos'] = todos;
-    }
+    data['todos'] = todos;
+    data['done'] = done;
     return data;
   }
 
@@ -44,4 +53,8 @@ class Task extends Equatable {
 
   @override
   List<Object?> get props => [title, icon, color];
+
+  int get length {
+    return todos.length + done.length;
+  }
 }

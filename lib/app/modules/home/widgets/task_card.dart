@@ -27,8 +27,8 @@ class TaskCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           StepProgressIndicator(
-            totalSteps: 100,
-            currentStep: 60,
+            totalSteps: task.length == 0 ? 1 : task.length,
+            currentStep: task.length == 0 ? 1 : task.done.length,
             size: 5,
             padding: 0,
             selectedGradientColor: LinearGradient(
@@ -62,7 +62,7 @@ class TaskCard extends StatelessWidget {
                   height: 2.0.wp,
                 ),
                 Text(
-                  "${task.todos?.length ?? 0} Task",
+                  "${task.length} Task",
                   style: const TextStyle(
                       fontWeight: FontWeight.bold, color: Colors.grey),
                 )

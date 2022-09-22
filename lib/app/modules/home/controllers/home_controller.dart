@@ -11,6 +11,7 @@ class HomeController extends GetxController {
   final formKey = GlobalKey<FormState>();
   final deleting = false.obs;
   final editController = TextEditingController();
+  final tabIndex = 0.obs;
   final chipIndex = 0.obs;
   final task = Rx<Task?>(null);
 
@@ -51,14 +52,17 @@ class HomeController extends GetxController {
   }
 
   bool updateTask(Task task, String text) {
-    final todos = task.todos ?? [];
-    if (todos.any((element) => element["title"] == text)) {
+    final todos = task.todos;
+    if (todos.any((element) => element == text)) {
       return false;
     }
-    final todo = {"title": text, "done": false};
-    todos.add(todo);
+    todos.add(text);
     tasks[tasks.indexOf(task)].todos = todos;
     tasks.refresh();
     return true;
+  }
+
+  void changeTabIndex(int index) {
+    tabIndex.value = index;
   }
 }

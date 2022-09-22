@@ -10,8 +10,9 @@ class AddDialogView extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Form(
+    return Container(
+      color: Colors.white,
+      child: Form(
         key: controller.formKey,
         child: ListView(
           children: [
